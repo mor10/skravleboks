@@ -23,8 +23,18 @@ def main():
     #         print(f"{msg['role'].capitalize()} ({msg['timestamp']}): {msg['text']}")
     #     print("------------------------")
 
+    # Voice or text input mode
+    mode = input("Choose input mode: [t]ext or [v]oice? (default: text): ").strip().lower()
+    use_voice = mode == "v"
+    if use_voice:
+        from voice_utils import SpeechRecognizer
+        recognizer = SpeechRecognizer()
+
     while True:
-        user_input = input("You: ")
+        if use_voice:
+            user_input = recognizer.listen()
+        else:
+            user_input = input("You: ")
         if user_input.strip().lower() == "exit":
             print("Goodbye!")
             break
