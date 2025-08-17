@@ -10,24 +10,27 @@ class OllamaClient:
         self.host = host.rstrip("/")
         self.model = model
 
-    def prompt(self, prompt_text):
-        url = f"{self.host}/api/generate"
-        payload = {"model": self.model, "prompt": prompt_text}
+    def prompt_stream(self, messages, temperature=0.7):
+        url = f"{self.host}/api/chat"
+        payload = {
+            "model": self.model,
+            "messages": messages,
+            "temperature": temperature
+        }
         try:
             response = requests.post(url, json=payload, timeout=60, stream=True)
             response.raise_for_status()
-            result = ""
             for line in response.iter_lines():
                 if line:
                     try:
-                        # Decode bytes to string before loading JSON
                         data = json.loads(line.decode("utf-8"))
-                        result += data.get("response", "")
+                        chunk = data.get("message", {}).get("content", "")
+                        if chunk:
+                            yield chunk
                     except Exception:
                         continue
-            return result
         except Exception as e:
-            return f"Error: {e}"
+            yield f"Error: {e}"
 
 if __name__ == "__main__":
     client = OllamaClient()
