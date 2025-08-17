@@ -1,0 +1,3 @@
+# Lightweight dependencies for ARM/MacOS compatibility
+# Add more as needed
+requests
