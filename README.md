@@ -2,30 +2,40 @@
 
 A local AI voice assistant.
 
-
 ## Project Setup
 
 ### 1. Initialize Python Project
 
+#### On RPI or MacOS
+
 ```sh
-# On MacOS or Raspberry Pi
-python3 -m venv .venv
+uv venv
 source .venv/bin/activate
-pip install -r requirements.txt
+uv sync
+```
+
+#### Additional MacOS step:
+
+Vosk does not install properly through UV on MacOS running on MX processors. Installing through pip resolves the issue:
+
+```sh
+uv pip install -e .[speech]
 ```
 
 ### 2. Install Vosk Model (Speech Recognition)
 
-#### On MacOS:
+#### On Raspberry Pi:
+
 ```sh
-curl -LO https://alphacephei.com/vosk/models/vosk-model-small-en-us-0.15.zip
+wget https://alphacephei.com/vosk/models/vosk-model-small-en-us-0.15.zip
 unzip vosk-model-small-en-us-0.15.zip
 mv vosk-model-small-en-us-0.15 model
 ```
 
-#### On Raspberry Pi:
+#### On MacOS:
+
 ```sh
-wget https://alphacephei.com/vosk/models/vosk-model-small-en-us-0.15.zip
+curl -LO https://alphacephei.com/vosk/models/vosk-model-small-en-us-0.15.zip
 unzip vosk-model-small-en-us-0.15.zip
 mv vosk-model-small-en-us-0.15 model
 ```
@@ -47,6 +57,7 @@ python src/voice_utils.py
 ---
 
 ## Spec
+
 - Model environment: Ollama
 - Model: llama3.2
 - Speech recognition: Vosk
