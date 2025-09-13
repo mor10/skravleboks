@@ -3,4 +3,4 @@
 requests
 vosk
 sounddevice
-pipertts
+piper-tts

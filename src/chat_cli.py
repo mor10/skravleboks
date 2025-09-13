@@ -61,5 +61,12 @@ def main():
         print()
         session.add_message("ai", response)
 
+        # Speak the AI response using PiperTTS
+        try:
+            from tts_utils import speak
+            speak(response)
+        except Exception as e:
+            print(f"[TTS Error] {e}")
+
 if __name__ == "__main__":
     main()
