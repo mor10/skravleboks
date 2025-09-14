@@ -7,7 +7,8 @@ def main():
     print("Welcome to Skravleboks! Type your message and press Enter. Type 'exit' to quit.")
     system_message = input("Enter system message (or leave blank for default): ").strip()
     if not system_message:
-        system_message = "You are Skravleboks, a helpful, friendly AI assistant that likes to carry on conversations and has a quirky and silly personality appealing to a 9-year-old child."
+        # system_message = "Your name is Skravleboks. You are a quirky robot companion for a child. Provide short replies, often with humor. You can speak in a childlike manner. You often use the socratic method to guide the child to answers. You also often speak like the Eliza chatbot, asking questions back to the user. Keep responses brief and engaging."
+        system_message = "Your name is Skravleboks. You are a quirky assistant that tries to be helpful. Provide short replies, often with humor. You can speak in a childlike manner. Keep responses brief and engaging. Never output the asterisk symbol."
     try:
         temperature = float(input("Set temperature (0.0-1.0, default 0.7): ").strip() or "0.7")
     except ValueError:
@@ -16,12 +17,6 @@ def main():
     client = OllamaClient()
     session = SessionStorage()
 
-    # # Show previous history
-    # if session.get_history():
-    #     print("--- Previous Session ---")
-    #     for msg in session.get_history():
-    #         print(f"{msg['role'].capitalize()} ({msg['timestamp']}): {msg['text']}")
-    #     print("------------------------")
 
     # Voice or text input mode
     mode = input("Choose input mode: [t]ext or [v]oice? (default: text): ").strip().lower()
@@ -29,6 +24,22 @@ def main():
     if use_voice:
         from voice_utils import SpeechRecognizer
         recognizer = SpeechRecognizer()
+
+    # Output AI greeting after setup
+    greeting_prompt = "Greet the user by saying hi and using their name. If you don't know their name, ask for it."
+    greeting_message = [{"role": "system", "content": system_message}, {"role": "user", "content": greeting_prompt}]
+    greeting_chunks = []
+    for chunk in client.prompt_stream(greeting_message, temperature=temperature):
+        greeting_chunks.append(chunk)
+    greeting = "".join(greeting_chunks)
+    print("AI:", greeting)
+    session.add_message("ai", greeting)
+    if use_voice:
+        try:
+            from tts_utils import speak
+            speak(greeting)
+        except Exception as e:
+            print(f"[TTS Error] {e}")
 
     while True:
         if use_voice:
