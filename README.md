@@ -10,7 +10,7 @@ A local AI voice assistant.
 # On MacOS or Raspberry Pi
 python3 -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
+uv sync
 ```
 
 ### 2. Install Vosk Model (Speech Recognition)
@@ -43,6 +43,30 @@ python src/hello.py
 ```sh
 python src/voice_utils.py
 # Speak into your microphone and see the recognized text.
+```
+
+### 5. Install voices for PiperTTS
+
+Voice samples: https://rhasspy.github.io/piper-samples/
+
+You need two files: `.onnx` and `.onnx.json`
+
+Place them in the `./piper_models/` folder
+
+#### On MacOS:
+
+```sh
+cd piper_models
+curl -L https://huggingface.co/rhasspy/piper-voices/resolve/main/en/en_GB/semaine/medium/en_GB-semaine-medium.onnx
+curl -L https://huggingface.co/rhasspy/piper-voices/resolve/main/en/en_GB/semaine/medium/en_GB-semaine-medium.onnx.json
+```
+
+#### On Raspberry Pi:
+
+```sh
+cd piper_models
+wget https://huggingface.co/rhasspy/piper-voices/resolve/main/en/en_US/lessac/medium/en_GB-semaine-medium.onnx
+wget https://huggingface.co/rhasspy/piper-voices/resolve/main/en/en_US/lessac/medium/en_GB-semaine-medium.onnx.json
 ```
 
 ---

@@ -1,14 +1,15 @@
 
 from ollama_client import OllamaClient
 from session_storage import SessionStorage
-
+from prompts import SMALL_SYSTEM
 
 def main():
     print("Welcome to Skravleboks! Type your message and press Enter. Type 'exit' to quit.")
     system_message = input("Enter system message (or leave blank for default): ").strip()
     if not system_message:
         # system_message = "Your name is Skravleboks. You are a quirky robot companion for a child. Provide short replies, often with humor. You can speak in a childlike manner. You often use the socratic method to guide the child to answers. You also often speak like the Eliza chatbot, asking questions back to the user. Keep responses brief and engaging."
-        system_message = "Your name is Skravleboks. You are a quirky assistant that tries to be helpful. Provide short replies, often with humor. You can speak in a childlike manner. Keep responses brief and engaging. Never output the asterisk symbol."
+        # system_message = "Your name is Skravleboks. You are a quirky assistant that tries to be helpful. Provide short replies, often with humor. You can speak in a childlike manner. Keep responses brief and engaging. Never output the asterisk symbol."
+        system_message = SMALL_SYSTEM
     try:
         temperature = float(input("Set temperature (0.0-1.0, default 0.7): ").strip() or "0.7")
     except ValueError:
@@ -61,7 +62,7 @@ def main():
                 messages.append({"role": "user", "content": msg["text"]})
             elif msg["role"] == "ai":
                 messages.append({"role": "assistant", "content": msg["text"]})
-        messages.append({"role": "user", "content": user_input})
+            # Do not append user_input again; it's already in history
 
         print("AI:", end=" ", flush=True)
         response_chunks = []

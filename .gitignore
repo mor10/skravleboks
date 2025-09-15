@@ -4,5 +4,7 @@
 __pycache__/
 
 # Other
+.DS_Store
 *.zip
 /model/
+/piper_models/

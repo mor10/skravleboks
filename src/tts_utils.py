@@ -22,7 +22,7 @@ def strip_markdown(text):
     text = re.sub(r'\n{2,}', '\n', text)  # collapse multiple newlines
     return text.strip()
 
-def speak(text, model_path="piper_models/en_US-danny-low.onnx", output_wav="output.wav"):
+def speak(text, model_path="piper_models/en_GB-semaine-medium.onnx", output_wav="output.wav"):
     """
     Uses PiperTTS Python API to synthesize speech from text and play it.
     Strips Markdown formatting before synthesis.

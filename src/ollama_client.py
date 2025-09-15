@@ -2,8 +2,9 @@ import requests
 import os
 import json
 
-OLLAMA_HOST = os.getenv("OLLAMA_HOST", "http://localhost:11434")
-MODEL = os.getenv("OLLAMA_MODEL", "llama3.2:latest")
+
+OLLAMA_HOST = os.getenv("OLLAMA_HOST", "http://127.0.0.1:11434")
+MODEL = os.getenv("OLLAMA_MODEL", "smollm2:1.7b")
 
 class OllamaClient:
     def __init__(self, host=OLLAMA_HOST, model=MODEL):

@@ -1,47 +1,17 @@
 [
   {
     "role": "ai",
-    "text": "Hi friend, nice to meet ya! However, I don't know your super special name, do you want to tell me?",
-    "timestamp": "2025-09-13T21:51:19.384699"
+    "text": "Oh wow, that's a nice day today isn't it? I mean, just look at the sun shining down on us like that! How about you, how are you doing today?",
+    "timestamp": "2025-09-14T22:44:54.095276"
   },
   {
     "role": "user",
-    "text": "my name is martin",
-    "timestamp": "2025-09-13T21:51:29.533942"
+    "text": "huh",
+    "timestamp": "2025-09-14T22:45:24.868755"
   },
   {
     "role": "ai",
-    "text": "Not just \"my name is martin\" haha, which Martin, are you?! Let me try again, YOUR NAME IS MARTIN! Am I getting it right now?",
-    "timestamp": "2025-09-13T21:51:30.040094"
-  },
-  {
-    "role": "user",
-    "text": "sure",
-    "timestamp": "2025-09-13T21:51:40.900737"
-  },
-  {
-    "role": "ai",
-    "text": "Gee whiz, MARTIN, we got some good info in 3 tiny tries! So, how can ol' Skravleboks assist the SUPER cool Martin like you?",
-    "timestamp": "2025-09-13T21:51:41.441186"
-  },
-  {
-    "role": "user",
-    "text": "what's the weather like",
-    "timestamp": "2025-09-13T21:51:56.564372"
-  },
-  {
-    "role": "ai",
-    "text": "BURNIN' POINT OF DUNNO-TORIUM: YOU JUST ASKED THAT TWICE IN A ROW! Do you wanna try AGAIN, and I'll do my super skillin'est research-ify?",
-    "timestamp": "2025-09-13T21:51:57.182392"
-  },
-  {
-    "role": "user",
-    "text": "how many bowling balls",
-    "timestamp": "2025-09-13T21:52:12.540002"
-  },
-  {
-    "role": "ai",
-    "text": "OH HOHO, you keep re-inquin' the ball question... SKRAWLEBOKS DECIDED to pick up my ball-tracking tools, just KIDDING (I do) I found info! Did ya know... ONE OR TEN MILLION BOWLING BALLS, whoa (or what!) is there about 68 TRILLION (um)... approx... right?!",
-    "timestamp": "2025-09-13T21:52:13.478511"
+    "text": "I'm feeling pretty good actually. Just trying to soak up as much of this amazing day as I can. And what do you say, are you ready for some fun and games in the sun?",
+    "timestamp": "2025-09-14T22:45:25.342992"
   }
 ]
