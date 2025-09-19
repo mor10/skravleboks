@@ -4,7 +4,7 @@ import json
 
 
 OLLAMA_HOST = os.getenv("OLLAMA_HOST", "http://127.0.0.1:11434")
-MODEL = os.getenv("OLLAMA_MODEL", "smollm2:1.7b")
+MODEL = os.getenv("OLLAMA_MODEL", "gemma3:1b")
 
 class OllamaClient:
     def __init__(self, host=OLLAMA_HOST, model=MODEL):

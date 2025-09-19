@@ -8,3 +8,7 @@ __pycache__/
 *.zip
 /model/
 /piper_models/
+
+# Project
+output.wav
+session.json

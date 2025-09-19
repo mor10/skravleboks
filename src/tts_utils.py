@@ -22,12 +22,33 @@ def strip_markdown(text):
     text = re.sub(r'\n{2,}', '\n', text)  # collapse multiple newlines
     return text.strip()
 
+def strip_emojis_and_symbols(text):
+    # Remove emojis and most non-text symbols (Unicode ranges)
+    emoji_pattern = re.compile(
+        "["
+        "\U0001F600-\U0001F64F"  # emoticons
+        "\U0001F300-\U0001F5FF"  # symbols & pictographs
+        "\U0001F680-\U0001F6FF"  # transport & map symbols
+        "\U0001F1E0-\U0001F1FF"  # flags (iOS)
+        "\U00002700-\U000027BF"  # Dingbats
+        "\U0001F900-\U0001F9FF"  # Supplemental Symbols and Pictographs
+        "\U00002600-\U000026FF"  # Misc symbols
+        "\U00002B50"              # Star
+        "\U000024C2-\U0001F251"  # Enclosed characters
+        "]+",
+        flags=re.UNICODE)
+    # Remove other non-alphanumeric symbols except basic punctuation
+    text = emoji_pattern.sub(r'', text)
+    text = re.sub(r'[^\w\s.,!?\'\"-]', '', text)
+    return text
+
 def speak(text, model_path="piper_models/en_GB-semaine-medium.onnx", output_wav="output.wav"):
     """
     Uses PiperTTS Python API to synthesize speech from text and play it.
-    Strips Markdown formatting before synthesis.
+    Strips Markdown formatting and removes emojis/symbols before synthesis.
     """
     clean_text = strip_markdown(text)
+    clean_text = strip_emojis_and_symbols(clean_text)
     voice = PiperVoice.load(model_path)
     with wave.open(output_wav, "wb") as wav_file:
         voice.synthesize_wav(clean_text, wav_file)
