@@ -7,6 +7,10 @@ import wave
 import re
 from piper import PiperVoice
 
+# Optional caching for Piper voice to avoid reloading model each utterance on Pi.
+# Disable caching by setting SKRAVLE_TTS_NOCACHE=1
+_VOICE_CACHE = {}
+
 
 def strip_markdown(text):
     # Remove Markdown formatting (bold, italics, code, links, etc.)
@@ -43,20 +47,33 @@ def strip_emojis_and_symbols(text):
     return text
 
 def speak(text, model_path="piper_models/en_GB-semaine-medium.onnx", output_wav="output.wav"):
+    """Synthesize speech (optionally cached voice) and play it.
+
+    Environment:
+      SKRAVLE_DISABLE_TTS   -> if set to '1', skip speaking (useful for headless tests)
+      SKRAVLE_TTS_NOCACHE   -> if set to '1', do not cache model in memory
     """
-    Uses PiperTTS Python API to synthesize speech from text and play it.
-    Strips Markdown formatting and removes emojis/symbols before synthesis.
-    """
+    if os.getenv("SKRAVLE_DISABLE_TTS") == "1":
+        return
+
     clean_text = strip_markdown(text)
     clean_text = strip_emojis_and_symbols(clean_text)
-    voice = PiperVoice.load(model_path)
+
+    use_cache = os.getenv("SKRAVLE_TTS_NOCACHE") != "1"
+    voice = None
+    if use_cache:
+        voice = _VOICE_CACHE.get(model_path)
+    if voice is None:
+        voice = PiperVoice.load(model_path)
+        if use_cache:
+            _VOICE_CACHE[model_path] = voice
+
     with wave.open(output_wav, "wb") as wav_file:
         voice.synthesize_wav(clean_text, wav_file)
     # Play the wav file (MacOS: afplay, Raspberry Pi: aplay)
-    if sys.platform == "darwin":
-        os.system(f"afplay {output_wav}")
-    else:
-        os.system(f"aplay {output_wav}")
+    play_cmd = "afplay" if sys.platform == "darwin" else "aplay"
+    # Use non-blocking background play if available
+    os.system(f"{play_cmd} {output_wav} >/dev/null 2>&1 &")
 
 if __name__ == "__main__":
     speak("Hello from PiperTTS!")

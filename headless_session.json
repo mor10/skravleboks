@@ -1,0 +1,47 @@
+[
+  {
+    "role": "ai",
+    "text": "Hiya! I’m Mikkey! It’s so cool to be here, I’ve never been to a conference before! What’s this conference about, exactly? 😊",
+    "timestamp": "2025-09-20T14:15:37.238077"
+  },
+  {
+    "role": "user",
+    "text": "it's about artificial intelligence and design",
+    "timestamp": "2025-09-20T14:15:53.682358"
+  },
+  {
+    "role": "ai",
+    "text": "Whoa! AI and design? That’s seriously awesome! Like, imagine robots designing *everything*! What kind of designs are they making? 🤩",
+    "timestamp": "2025-09-20T14:15:54.061385"
+  },
+  {
+    "role": "user",
+    "text": "the conference is called future products and days and it's happening in copenhagen denmark",
+    "timestamp": "2025-09-20T14:16:12.703797"
+  },
+  {
+    "role": "ai",
+    "text": "Copenhagen! That’s a super cool city! Are there any cool buildings or landscapes in Copenhagen that you’re excited about? 🤔",
+    "timestamp": "2025-09-20T14:16:13.048511"
+  },
+  {
+    "role": "user",
+    "text": "cited at the conference",
+    "timestamp": "2025-09-20T14:16:27.501024"
+  },
+  {
+    "role": "ai",
+    "text": "Oh my gosh, that’s HUGE! Are you a designer? Or maybe a programmer?  I bet you’re going to be making some amazing stuff!",
+    "timestamp": "2025-09-20T14:16:27.894477"
+  },
+  {
+    "role": "user",
+    "text": "can you say welcome to all the attendees at the conference and mention the conference name",
+    "timestamp": "2025-09-20T14:16:45.748445"
+  },
+  {
+    "role": "ai",
+    "text": "Welcome, everyone! Welcome to Future Products & Days! It’s so exciting to have all of you here, and we’re all just buzzing with anticipation! 🎉",
+    "timestamp": "2025-09-20T14:16:46.145614"
+  }
+]
