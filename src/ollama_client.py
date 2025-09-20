@@ -11,17 +11,59 @@ class OllamaClient:
         self.host = host.rstrip("/")
         self.model = model
 
+    def _is_gemma_model(self):
+        """Check if the current model is a Gemma model that doesn't support system messages"""
+        return "gemma" in self.model.lower()
+
+    def _prepare_messages_for_gemma(self, messages):
+        """Prepare messages for Gemma models by converting system messages to user messages"""
+        if not self._is_gemma_model():
+            return messages
+        
+        prepared_messages = []
+        
+        for msg in messages:
+            role = msg.get("role")
+            content = msg.get("content", "")
+            
+            if role == "system":
+                # Convert system message to user message - Ollama will format it correctly
+                prepared_messages.append({
+                    "role": "user",
+                    "content": content
+                })
+            elif role == "user":
+                prepared_messages.append({
+                    "role": "user",
+                    "content": content
+                })
+            elif role in ["assistant", "ai"]:
+                prepared_messages.append({
+                    "role": "assistant",
+                    "content": content
+                })
+        
+        return prepared_messages
+
     def prompt_stream(self, messages, temperature=0.7):
+        # Prepare messages for Gemma models if needed
+        prepared_messages = self._prepare_messages_for_gemma(messages)
+        
         url = f"{self.host}/api/chat"
         payload = {
             "model": self.model,
-            "messages": messages,
+            "messages": prepared_messages,
             "options": {
                 "temperature": temperature,
-                "num_predict": 100,
-                "top_k": 200,
+                "num_predict": 150,
+                "top_k": 40,
+                "top_p": 0.9,
             }
         }
+        
+        # Store the payload for logging purposes
+        self.last_payload = payload
+        
         try:
             response = requests.post(url, json=payload, timeout=60, stream=True)
             response.raise_for_status()

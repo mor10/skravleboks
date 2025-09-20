@@ -12,3 +12,4 @@ __pycache__/
 # Project
 output.wav
 session.json
+message_log.json
